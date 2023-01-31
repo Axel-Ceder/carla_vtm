@@ -1,0 +1,3 @@
+[submodule "Unreal/CarlaUE4/Plugins/VTMForCarla"]
+	path = Unreal/CarlaUE4/Plugins/VTMForCarla
+	url = https://esw-github.33858.volvo.net/A349097/VTMForCarla

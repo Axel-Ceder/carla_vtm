@@ -9,7 +9,8 @@ public class Carla : ModuleRules
   bool UsingCarSim = false;
   bool UsingChrono = false;
   bool UsingPytorch = false;
-  private bool IsWindows(ReadOnlyTargetRules Target)
+  bool UsingCustom = false;
+    private bool IsWindows(ReadOnlyTargetRules Target)
   {
     return (Target.Platform == UnrealTargetPlatform.Win64) || (Target.Platform == UnrealTargetPlatform.Win32);
   }
@@ -36,6 +37,13 @@ public class Carla : ModuleRules
         UsingCarSim = true;
         PublicDefinitions.Add("WITH_CARSIM");
         PrivateDefinitions.Add("WITH_CARSIM");
+      }
+      if (line.Contains("Custom Sim ON"))
+      {
+        Console.WriteLine("Enabling Custom Simulator");
+        UsingCustom = true;
+        PublicDefinitions.Add("WITH_CUSTOM_SIM");
+        PrivateDefinitions.Add("WITH_CUSTOM_SIM");
       }
       if (line.Contains("Chrono ON"))
       {
