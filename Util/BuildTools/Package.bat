@@ -29,6 +29,7 @@ set DO_CLEAN=false
 set PACKAGES=Carla
 set PACKAGE_CONFIG=Shipping
 set USE_CARSIM=false
+set USE_CUSTOM=false
 set SINGLE_PACKAGE=false
 
 :arg-parse
@@ -72,6 +73,10 @@ if not "%1"=="" (
 
     if "%1"=="--carsim" (
         set USE_CARSIM=true
+    )
+
+    if "%1"=="--custom" (
+        set USE_CUSTOM=true
     )
 
     if "%1"=="-h" (
@@ -124,6 +129,12 @@ if %DO_PACKAGE%==true (
     ) else (
         py -3 %ROOT_PATH%Util/BuildTools/enable_carsim_to_uproject.py -f="%ROOT_PATH%Unreal/CarlaUE4/CarlaUE4.uproject"
         echo CarSim OFF > "%ROOT_PATH%Unreal/CarlaUE4/Config/CarSimConfig.ini"
+    )
+
+    if %USE_CUSTOM% == true (
+        echo Custom Sim ON > "%ROOT_PATH%Unreal/CarlaUE4/Config/OptionalModules.ini"
+    ) else (
+        echo Custom Sim ON > "%ROOT_PATH%Unreal/CarlaUE4/Config/OptionalModules.ini"
     )
 
     if not exist "!BUILD_FOLDER!" mkdir "!BUILD_FOLDER!"

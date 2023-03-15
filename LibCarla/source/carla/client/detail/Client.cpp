@@ -467,6 +467,11 @@ namespace detail {
         BaseJSONPath);
   }
 
+  void Client::EnableCustomSimulator( rpc::ActorId vehicle) {
+    _pimpl->AsyncCall("enable_custom_simulator",
+        vehicle);
+  }
+  
   void Client::ApplyControlToWalker(rpc::ActorId walker, const rpc::WalkerControl &control) {
     _pimpl->AsyncCall("apply_control_to_walker", walker, control);
   }

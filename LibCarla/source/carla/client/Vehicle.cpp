@@ -143,6 +143,11 @@ namespace client {
         TireJSON,
         BaseJSONPath);
   }
+  
+  void Vehicle::EnableCustomSimulator() 
+  {
+    GetEpisode().Lock()->EnableCustomSimulator(*this);
+  }
 
   rpc::VehicleFailureState Vehicle::GetFailureState() const {
     return GetEpisode().Lock()->GetActorSnapshot(*this).state.vehicle_data.failure_state;

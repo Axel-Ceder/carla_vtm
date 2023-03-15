@@ -78,7 +78,7 @@ def tutorial(args):
         if not os.path.isdir('_out'):
             os.mkdir('_out')
         # Search the desired blueprints
-        vehicle_bp = bp_lib.filter("vehicle.lincoln.mkz_2017")[0]
+        vehicle_bp = bp_lib.filter("vehicle.volvo.*")[0]
         camera_bp = bp_lib.filter("sensor.camera.rgb")[0]
         lidar_bp = bp_lib.filter("sensor.lidar.ray_cast")[0]
 
@@ -101,6 +101,7 @@ def tutorial(args):
             blueprint=vehicle_bp,
             transform=world.get_map().get_spawn_points()[0])
         vehicle.set_autopilot(True)
+        vehicle.enable_custom_simulator()
         camera = world.spawn_actor(
             blueprint=camera_bp,
             transform=carla.Transform(carla.Location(x=1.6, z=1.6)),

@@ -22,6 +22,7 @@ AWeather::AWeather(const FObjectInitializer& ObjectInitializer)
 
     PrimaryActorTick.bCanEverTick = false;
     RootComponent = ObjectInitializer.CreateDefaultSubobject<USceneComponent>(this, TEXT("RootComponent"));
+    WindComponent = ObjectInitializer.CreateDefaultSubobject<UWindGeneration>(this, TEXT("WindComp"));
 }
 
 void AWeather::CheckWeatherPostProcessEffects()

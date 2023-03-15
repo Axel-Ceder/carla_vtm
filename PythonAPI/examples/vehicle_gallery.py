@@ -31,16 +31,17 @@ def get_transform(vehicle_location, angle, d=6.4):
 
 
 def main():
-    client = carla.Client('localhost', 2000)
+    client = carla.Client('127.0.0.1', 2000)
     client.set_timeout(2.0)
     world = client.get_world()
     spectator = world.get_spectator()
-    vehicle_blueprints = world.get_blueprint_library().filter('vehicle')
+    vehicle_blueprints = world.get_blueprint_library().filter('vehicle.volvo.*')
 
     location = random.choice(world.get_map().get_spawn_points()).location
 
     for blueprint in vehicle_blueprints:
         transform = carla.Transform(location, carla.Rotation(yaw=-45.0))
+        print(blueprint)
         vehicle = world.spawn_actor(blueprint, transform)
 
         try:
@@ -48,7 +49,7 @@ def main():
             print(vehicle.type_id)
 
             angle = 0
-            while angle < 356:
+            while angle < 20:
                 timestamp = world.wait_for_tick().timestamp
                 angle += timestamp.delta_seconds * 60.0
                 spectator.set_transform(get_transform(vehicle.get_location(), angle - 90))

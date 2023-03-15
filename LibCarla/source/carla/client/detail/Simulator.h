@@ -537,6 +537,10 @@ namespace detail {
           BaseJSONPath);
     }
 
+    void EnableCustomSimulator(Vehicle &vehicle) {
+      _client.EnableCustomSimulator(vehicle.GetId());
+    }
+
     /// @}
     // =========================================================================
     /// @name Operations with the recorder

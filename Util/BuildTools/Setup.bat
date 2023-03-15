@@ -32,6 +32,7 @@ set CARLA_DEPENDENCIES_FOLDER=%ROOT_PATH:/=\%Unreal\CarlaUE4\Plugins\Carla\Carla
 set CARLA_BINARIES_FOLDER=%ROOT_PATH:/=\%Unreal\CarlaUE4\Plugins\Carla\Binaries\Win64
 set CARLA_PYTHON_DEPENDENCIES=%ROOT_PATH:/=\%PythonAPI\carla\dependencies\
 set USE_CHRONO=false
+set USE_CUSTOM=false
 
 :arg-parse
 if not "%1"=="" (
@@ -43,6 +44,9 @@ if not "%1"=="" (
     )
     if "%1"=="--chrono" (
         set USE_CHRONO=true
+    )
+    if "%1"=="--custom" (
+        set USE_CUSTOM=true
     )
     if "%1"=="-h" (
         goto help

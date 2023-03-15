@@ -88,8 +88,12 @@ public class Carla : ModuleRules
     {
       PublicDependencyModuleNames.AddRange(new string[] { "CarSim" });
     }
+    if (UsingCustom)
+    {
+        PublicDependencyModuleNames.AddRange(new string[] { "VTMForCarla" });
+    }
 
-	 if (Target.Type == TargetType.Editor)
+        if (Target.Type == TargetType.Editor)
 	 {
 		PublicDependencyModuleNames.AddRange(new string[] { "UnrealEd" });
 	 }
@@ -103,6 +107,7 @@ public class Carla : ModuleRules
         "Engine",
         "Foliage",
         "ImageWriteQueue",
+        "Projects",
         "Json",
         "JsonUtilities",
         "Landscape",
@@ -120,7 +125,11 @@ public class Carla : ModuleRules
       PrivateDependencyModuleNames.AddRange(new string[] { "CarSim" });
       PrivateIncludePathModuleNames.AddRange(new string[] { "CarSim" });
     }
-
+    if (UsingCustom)
+    {
+        PrivateDependencyModuleNames.AddRange(new string[] { "VTMForCarla" });
+        PrivateIncludePathModuleNames.AddRange(new string[] { "VTMForCarla" });
+    }
 
     DynamicallyLoadedModuleNames.AddRange(
       new string[]

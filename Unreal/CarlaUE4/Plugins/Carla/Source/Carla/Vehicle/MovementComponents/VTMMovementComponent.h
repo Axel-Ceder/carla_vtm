@@ -3,7 +3,10 @@
 #pragma once
 
 #include "BaseCarlaMovementComponent.h"
+
+#ifdef WITH_CUSTOM_SIM
 #include "VTM_Interface.h"
+#endif
 #include "VTMMovementComponent.generated.h"
 
 
@@ -31,9 +34,8 @@ public:
 
 	UPROPERTY(Category = "VTM", EditAnywhere, BlueprintReadWrite)
 		float Throttle = 100.0f;
-
-
-	UPROPERTY(Category = "VTM", VisibleAnywhere)
-		UVTM_Interface* plantModel;
+private:
+	void UpdateRoad();
+	void UpdateWind();
 };
 

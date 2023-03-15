@@ -341,6 +341,10 @@ public:
     return ECarlaServerResponse::ActorTypeMismatch;
   }
 
+  virtual ECarlaServerResponse EnableCustomSimulator()
+  {
+      return ECarlaServerResponse::ActorTypeMismatch;
+  }
   // Traffic light functions
 
   virtual ECarlaServerResponse SetTrafficLightState(const ETrafficLightState&)
@@ -525,6 +529,8 @@ public:
       uint64_t MaxSubsteps, float MaxSubstepDeltaTime,
       const FString& VehicleJSON, const FString& PowertrainJSON,
       const FString& TireJSON, const FString& BaseJSONPath) final;
+
+  virtual ECarlaServerResponse EnableCustomSimulator() final;
 };
 
 class FSensorActor : public FCarlaActor

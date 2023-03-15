@@ -1,0 +1,49 @@
+Attempt to summarize the changes that was needed to add a custom vehicle.
+
+UE4:
+    Project Admin:
+    Carla.Build.cs and Carla.uplugin
+    Add the plugin
+
+
+    Plugin c++:
+    VTMForCarla Plugin
+    Here is the custom simulator, due to some issues with boost and other dependencies, we cant run it in the carla plugin and we run in its on plugin.
+    Link between compiled library and outside
+
+    Carla c++:
+    VTM.cpp+VTM.h in vehicle
+    These are the new pawns to replace BasicPawnOf Carla.
+    This is due to us needing to run c++ code to fetch how the vehicle parts should be placed.
+    The code checks a json for vtm parameters and structures vehicle accordingly
+
+    VTMMovementComponent.cpp+etc in Vehicle/MovementComponent
+    The main interface between plugin and Carla.
+
+    CarlaServer
+    Row 1775:
+    enable_custom_simulator
+    Calls to the actor to EnableCustomSimulator 
+
+    CarlaActor
+    EnableCustomSimulator
+    creates a VTMMovementComponent and assigns as movement controller.
+
+    Blueprints:
+    VehicleFactory
+    We need additional option to cast to VTM instead of BaseVehiclePawn
+
+    CustomVeh
+    Custom Vehicle. Inherits most from VTM. Assings some pseudo controls to satisfy default movement controller.
+
+Python:
+    carla\LibCarla\source\carla
+        Quite a few addons is needed for server communication, search for "EnableChronoPhysics" and "enable_chrono_physics"
+        We need one of each for EnableCustomSimulator
+    carla\PythonAPI\
+
+
+
+
+Sidenote:
+    When building engine, make sure to build CrashReporterClientEditor in shipping, so just change from development that carla wants to shipping, rightclick CrashReporterClientEditor and build.

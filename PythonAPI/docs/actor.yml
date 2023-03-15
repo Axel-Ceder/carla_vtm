@@ -119,6 +119,16 @@
       warning: >
         Collisions are not supported. When a collision is detected, physics will revert to the default CARLA physics.
     # --------------------------------------
+    - def_name: enable_custom_simulator
+      params:
+
+      doc: >
+        Enables Custom Simulator on a spawned vehicle.
+      note: >
+        Ensure that you have started the CARLA server with the `ARGS="--custom"` flag. You will not be able to use Custom simulator without this flag set.
+      warning: >
+        Collisions are not supported. When a collision is detected, physics will revert to the default CARLA physics.
+    # --------------------------------------
     - def_name: enable_constant_velocity
       params:
       - param_name: velocity

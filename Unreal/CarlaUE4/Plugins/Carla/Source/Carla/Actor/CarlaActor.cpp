@@ -15,6 +15,7 @@
 #include "Carla/Game/Tagger.h"
 #include "Carla/Vehicle/MovementComponents/CarSimManagerComponent.h"
 #include "Carla/Vehicle/MovementComponents/ChronoMovementComponent.h"
+#include "Carla/Vehicle/MovementComponents/VTMMovementComponent.h"
 #include "Carla/Traffic/TrafficLightBase.h"
 #include "Carla/Game/CarlaStatics.h"
 
@@ -1042,6 +1043,33 @@ ECarlaServerResponse FVehicleActor::EnableChronoPhysics(
   return ECarlaServerResponse::Success;
 }
 
+// VTM for now
+ECarlaServerResponse FVehicleActor::EnableCustomSimulator()
+{
+    if (IsDormant())
+    {
+    }
+    else
+    {
+        auto Vehicle = Cast<ACarlaWheeledVehicle>(GetActor());
+        if (Vehicle == nullptr)
+        {
+            return ECarlaServerResponse::NotAVehicle;
+        }
+        UVTMMovementComponent::CreateVTMMovementComponent(
+            Vehicle
+        );
+        //UChronoMovementComponent::CreateChronoMovementComponent(
+        //    Vehicle,
+        //    MaxSubsteps,
+        //    MaxSubstepDeltaTime,
+        //    VehicleJSON,
+        //    PowertrainJSON,
+        //    TireJSON,
+        //    BaseJSONPath);
+    }
+    return ECarlaServerResponse::Success;
+}
 // FSensorActor functions ---------------------
 
 // FtrafficSignActor functions ---------------------

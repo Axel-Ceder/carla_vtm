@@ -1772,6 +1772,29 @@ void FCarlaServer::FPimpl::BindActions()
     return R<void>::Success();
   };
 
+  BIND_SYNC(enable_custom_simulator) << [this](
+      cr::ActorId ActorId) -> R<void>
+  {     // Check Chrono If we want to add more inputs. Migh be able to switch.
+      REQUIRE_CARLA_EPISODE();
+      FCarlaActor* CarlaActor = Episode->FindCarlaActor(ActorId);
+      if (!CarlaActor)
+      {
+          return RespondError(
+              "enable_custom_physics",
+              ECarlaServerResponse::ActorNotFound,
+              " Actor Id: " + FString::FromInt(ActorId));
+      }
+      ECarlaServerResponse Response =
+          CarlaActor->EnableCustomSimulator();
+      if (Response != ECarlaServerResponse::Success)
+      {
+          return RespondError(
+              "enable_custom_physics",
+              Response,
+              " Actor Id: " + FString::FromInt(ActorId));
+      }
+      return R<void>::Success();
+  };
   // ~~ Traffic lights ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   BIND_SYNC(set_traffic_light_state) << [this](

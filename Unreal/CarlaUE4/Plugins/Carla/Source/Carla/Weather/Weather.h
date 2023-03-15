@@ -8,6 +8,7 @@
 
 #include "GameFramework/Actor.h"
 #include "Carla/Weather/WeatherParameters.h"
+#include "Carla/Weather/Wind/WindGeneration.h"
 
 #include "Weather.generated.h"
 
@@ -41,6 +42,12 @@ public:
     return Weather;
   }
 
+  /// Returns the current WeatherParameters
+  UFUNCTION(BlueprintCallable)
+  UWindGeneration* GetCurrentWindGenerator() const
+  {
+      return WindComponent;
+  }
   /// Returns whether the day night cycle is active (automatic on/off switch when changin to night mode)
   UFUNCTION(BlueprintCallable)
   const bool &GetDayNightCycle() const
@@ -62,6 +69,9 @@ private:
 
   UPROPERTY(VisibleAnywhere)
   FWeatherParameters Weather;
+
+  UPROPERTY(VisibleAnywhere)
+  UWindGeneration* WindComponent;
 
   UMaterial* PrecipitationPostProcessMaterial;
 

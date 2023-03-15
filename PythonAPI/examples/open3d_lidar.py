@@ -180,6 +180,7 @@ def main(arg):
         vehicle_transform = random.choice(world.get_map().get_spawn_points())
         vehicle = world.spawn_actor(vehicle_bp, vehicle_transform)
         vehicle.set_autopilot(arg.no_autopilot)
+        vehicle.enable_custom_simulator()
 
         lidar_bp = generate_lidar_bp(arg, world, blueprint_library, delta)
 
@@ -242,8 +243,8 @@ if __name__ == "__main__":
     argparser.add_argument(
         '--host',
         metavar='H',
-        default='localhost',
-        help='IP of the host CARLA Simulator (default: localhost)')
+        default='127.0.0.1',
+        help='IP of the host CARLA Simulator (default: 127.0.0.1)')
     argparser.add_argument(
         '-p', '--port',
         metavar='P',

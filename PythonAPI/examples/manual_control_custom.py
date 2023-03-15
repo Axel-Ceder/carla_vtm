@@ -269,6 +269,7 @@ class World(object):
             spawn_point.rotation.pitch = 0.0
             self.destroy()
             self.player = self.world.try_spawn_actor(blueprint, spawn_point)
+            print(self.player)
             self.show_vehicle_telemetry = False
             self.modify_vehicle_physics(self.player)
         while self.player is None:
@@ -279,6 +280,8 @@ class World(object):
             spawn_points = self.map.get_spawn_points()
             spawn_point = random.choice(spawn_points) if spawn_points else carla.Transform()
             self.player = self.world.try_spawn_actor(blueprint, spawn_point)
+            print(self.player)
+            #self.world.player.enable_custom_simulator()
             self.show_vehicle_telemetry = False
             self.modify_vehicle_physics(self.player)
         # Set up the sensors.
@@ -1247,6 +1250,7 @@ def game_loop(args):
         if args.sync:
             original_settings = sim_world.get_settings()
             settings = sim_world.get_settings()
+            settings.no_rendering_mode = True
             if not settings.synchronous_mode:
                 settings.synchronous_mode = True
                 settings.fixed_delta_seconds = 0.05
@@ -1255,6 +1259,9 @@ def game_loop(args):
             traffic_manager = client.get_trafficmanager()
             traffic_manager.set_synchronous_mode(True)
 
+        settings = sim_world.get_settings()
+        #settings.no_rendering_mode = True
+        #sim_world.apply_settings(settings)
         if args.autopilot and not sim_world.get_settings().synchronous_mode:
             print("WARNING: You are currently in asynchronous mode and could "
                   "experience some issues with the traffic simulation")
@@ -1268,6 +1275,7 @@ def game_loop(args):
         hud = HUD(args.width, args.height)
         world = World(sim_world, hud, args)
         controller = KeyboardControl(world, args.autopilot)
+        world.player.enable_custom_simulator()
 
         if args.sync:
             sim_world.tick()
@@ -1330,12 +1338,13 @@ def main():
     argparser.add_argument(
         '--res',
         metavar='WIDTHxHEIGHT',
-        default='1280x720',
+        default='1280x720', # default='1280x720'
         help='window resolution (default: 1280x720)')
     argparser.add_argument(
         '--filter',
         metavar='PATTERN',
         default='vehicle.volvo.*',
+        #default='vehicle.*',
         help='actor filter (default: "vehicle.*")')
     argparser.add_argument(
         '--generation',

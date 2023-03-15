@@ -897,13 +897,13 @@ void ACarlaWheeledVehicle::SetSimulatePhysics(bool enabled) {
     RootComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 
     UVehicleAnimInstance *VehicleAnim = Cast<UVehicleAnimInstance>(GetMesh()->GetAnimInstance());
-    check(VehicleAnim != nullptr)
+    //check(VehicleAnim != nullptr)
 
     GetWorld()->GetPhysicsScene()->GetPxScene()->lockWrite();
     if (enabled)
     {
       Movement->RecreatePhysicsState();
-      VehicleAnim->ResetWheelCustomRotations();
+      //VehicleAnim->ResetWheelCustomRotations();
     }
     else
     {

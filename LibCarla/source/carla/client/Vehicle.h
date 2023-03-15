@@ -137,6 +137,9 @@ namespace client {
         std::string TireJSON = "",
         std::string BaseJSONPath = "");
 
+    
+    void EnableCustomSimulator();
+    
     /// Returns the failure state of the vehicle
     rpc::VehicleFailureState GetFailureState() const;
 
